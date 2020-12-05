@@ -10,12 +10,17 @@
     </parent>
     <groupId>com.gotkx</groupId>
     <artifactId>git-demo</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.3-SNAPSHOT</version>
     <name>git-demo</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
         <java.version>1.8</java.version>
+
+        <!-- 私有仓库配置，需要settings.xml文件配合serverId对应的仓库服务 账号密码 -->
+        <docker.repostory>192.168.50.108:8999</docker.repostory>
+        <docker.registry.name>private</docker.registry.name>
+
     </properties>
 
     <dependencies>
@@ -34,14 +39,12 @@
 
     <build>
         <plugins>
-
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <mainClass>com.gotkx.gitdemo.GitDemoApplication</mainClass>
                 </configuration>
-
             </plugin>
 
             <plugin>
@@ -49,9 +52,14 @@
                 <artifactId>docker-maven-plugin</artifactId>
                 <version>1.0.0</version>
                 <configuration>
-                    <imageName>gitdemo</imageName>
-                    <!--<imageTags>1.0.0</imageTags>-->
-                    <registryUrl>http://192.168.50.108:5000/</registryUrl>
+                    <serverId>harbor</serverId>
+                    <forceTags>true</forceTags>
+                   <!-- <imageName>${docker.image.prefix}/gitdemo:v3.0.0</imageName>-->
+
+                    <imageName>${docker.repostory}/${docker.registry.name}/${project.artifactId}:${project.version}</imageName>
+
+                    <!--<dockerDirectory>${basedir}/</dockerDirectory>-->
+                    <registryUrl>http://${docker.repostory}</registryUrl>
                     <dockerHost>http://192.168.50.108:2375</dockerHost>
                     <baseImage>maven</baseImage>
                     <entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint>
