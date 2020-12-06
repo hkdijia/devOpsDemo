@@ -1,3 +1,11 @@
+FROM openjdk:8-jre-alpine
+VOLUME /tmp
+#ARG JAR_FILE
+#COPY ${JAR_FILE} app.jar
+COPY target/*.jar app.jar
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
+
+
 #FROM java:8
 ## 维护者信息
 #MAINTAINER HuangKai
@@ -16,11 +24,11 @@
 #ENTRYPOINT ["java","-jar","git-demo-0.0.1-SNAPSHOT.jar", "--spring.profiles.active=prod"]
 
 
-FROM openjdk:8-jdk-alpine
-VOLUME /tmp
-ARG JAR_FILE
-COPY ${JAR_FILE} app.jar
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
+#FROM openjdk:8-jdk-alpine
+#VOLUME /tmp
+#ARG JAR_FILE
+#COPY ${JAR_FILE} /app.jar
+#ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
 
 #FROM adoptopenjdk/openjdk8-openj9
 #VOLUME /tmp
@@ -33,7 +41,6 @@ ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
 #ENV JAVA_OPTS="-Xms64m -Xmx256m"
 #
 #COPY ${JAR_FILE} git-demo.jar
-#
 #EXPOSE ${PORT}
 #
 #ENTRYPOINT java ${JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom -server -jar git-demo.jar

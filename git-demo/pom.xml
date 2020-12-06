@@ -8,9 +8,10 @@
         <version>2.4.0</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+
     <groupId>com.gotkx</groupId>
     <artifactId>git-demo</artifactId>
-    <version>0.0.3-SNAPSHOT</version>
+    <version>0.2.7-SNAPSHOT</version>
     <name>git-demo</name>
     <description>Demo project for Spring Boot</description>
 
@@ -54,15 +55,11 @@
                 <configuration>
                     <serverId>harbor</serverId>
                     <forceTags>true</forceTags>
-                   <!-- <imageName>${docker.image.prefix}/gitdemo:v3.0.0</imageName>-->
 
                     <imageName>${docker.repostory}/${docker.registry.name}/${project.artifactId}:${project.version}</imageName>
-
-                    <!--<dockerDirectory>${basedir}/</dockerDirectory>-->
+                    <dockerDirectory>${basedir}/</dockerDirectory>
                     <registryUrl>http://${docker.repostory}</registryUrl>
                     <dockerHost>http://192.168.50.108:2375</dockerHost>
-                    <baseImage>maven</baseImage>
-                    <entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint>
 
                     <resources>
                         <resource>
