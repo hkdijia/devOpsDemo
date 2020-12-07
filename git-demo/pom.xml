@@ -19,7 +19,7 @@
         <java.version>1.8</java.version>
 
         <!-- 私有仓库配置，需要settings.xml文件配合serverId对应的仓库服务 账号密码 -->
-        <docker.repostory>192.168.50.108:8999</docker.repostory>
+        <docker.repostory>172.17.253.211:8999</docker.repostory>
         <docker.registry.name>private</docker.registry.name>
 
     </properties>
@@ -59,7 +59,7 @@
                     <imageName>${docker.repostory}/${docker.registry.name}/${project.artifactId}:${project.version}</imageName>
                     <dockerDirectory>${basedir}/</dockerDirectory>
                     <registryUrl>http://${docker.repostory}</registryUrl>
-                    <dockerHost>http://192.168.50.108:2375</dockerHost>
+                    <dockerHost>http://172.17.253.211:2375</dockerHost>
 
                     <resources>
                         <resource>
